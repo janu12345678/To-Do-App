@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <title>To-Do App</title>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Centered Card -->
+  <div class="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
+    <h1 class="text-3xl text-blue-600 font-semibold text-center mb-6">To-Do App</h1>
+
+    <!-- Add Task Form -->
+    <form action="/add" method="post" class="flex mb-6">
+      <input type="text" id="task-input" name="task" placeholder="Add a new task"
+        class="flex-grow p-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        Add
+      </button>
+    </form>
+
+    <!-- Task List -->
+    <ul id="task-list" class="space-y-4">
+        <% tasks.forEach(function(task) { %>
+          <li class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div class="flex items-center">
+              <form action="/update-state/<%= task.id %>" method="post">
+                <input type="checkbox" id="task-<%= task.id %>" name="checked" value="true" <%= task.checked ? 'checked' : '' %> class="mr-3" onchange="this.form.submit()">
+              </form>
+              <label for="task-<%= task.id %>" class="text-gray-700"><%= task.name %></label>
+            </div>
+            <div class="flex items-center space-x-2">
+              <!-- Edit Button -->
+              <form action="/edit/<%= task.id %>" method="get">
+                <button type="submit" class="text-yellow-500 hover:text-yellow-700">
+                  <i class="fas fa-edit"></i>
+                </button>
+              </form>
+              <!-- Delete Button -->
+              <form action="/delete/<%= task.id %>" method="post">
+                <button type="submit" class="text-red-500 hover:text-red-700">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </form>
+            </div>
+          </li>
+        <% }); %>
+      </ul>      
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Edit Task</title>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Centered Card -->
+  <div class="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
+    <h1 class="text-3xl text-yellow-600 font-semibold text-center mb-6">Edit Task</h1>
+
+    <!-- Edit Task Form -->
+    <form action="/update-task/<%= task.id %>" method="post" class="flex mb-6">
+      <input type="text" id="task-input" name="task" value="<%= task.name %>"
+        class="flex-grow p-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-yellow-500">
+      <button type="submit" class="text-white px-4 py-3 rounded-r-lg bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+        Update
+      </button>
+    </form>
+  </div>
+
+</body>
+</html>
