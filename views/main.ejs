@@ -9,6 +9,15 @@
 </head>
 <body class="bg-gray-100">
 
+  <!-- Logout Button -->
+  <div class="absolute top-4 right-4">
+    <form action="/logout" method="post">
+      <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400">
+        Logout
+      </button>
+    </form>
+  </div>
+
   <!-- Centered Card -->
   <div class="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
     <h1 class="text-3xl text-blue-600 font-semibold text-center mb-6">To-Do App</h1>
@@ -24,23 +33,26 @@
 
     <!-- Task List -->
     <ul id="task-list" class="space-y-4">
+      <% if (tasks && tasks.length > 0) { %>
         <% tasks.forEach(function(task) { %>
           <li class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
             <div class="flex items-center">
-              <form action="/update-state/<%= task.id %>" method="post">
-                <input type="checkbox" id="task-<%= task.id %>" name="checked" value="true" <%= task.checked ? 'checked' : '' %> class="mr-3" onchange="this.form.submit()">
+              <form action="/update-state/<%= task._id %>" method="post">
+                <input type="checkbox" id="task-<%= task._id %>" name="checked" value="true" 
+                       <%= task.checked ? 'checked' : '' %> 
+                       class="mr-3">
               </form>
-              <label for="task-<%= task.id %>" class="text-gray-700"><%= task.name %></label>
+              <label for="task-<%= task._id %>" class="text-gray-700"><%= task.taskName %></label>
             </div>
             <div class="flex items-center space-x-2">
               <!-- Edit Button -->
-              <form action="/edit/<%= task.id %>" method="get">
+              <form action="/edit/<%= task._id %>" method="get">
                 <button type="submit" class="text-yellow-500 hover:text-yellow-700">
                   <i class="fas fa-edit"></i>
                 </button>
               </form>
               <!-- Delete Button -->
-              <form action="/delete/<%= task.id %>" method="post">
+              <form action="/delete/<%= task._id %>" method="post">
                 <button type="submit" class="text-red-500 hover:text-red-700">
                   <i class="fas fa-trash-alt"></i>
                 </button>
@@ -48,7 +60,10 @@
             </div>
           </li>
         <% }); %>
-      </ul>      
+      <% } else { %>
+        <li class="text-center text-gray-500">No tasks created yet!</li>
+      <% } %>
+    </ul>      
   </div>
 
 </body>
